@@ -1,7 +1,7 @@
 const S3 = require('aws-sdk/clients/s3')
 const fs = require('fs')
 const AWS = require('aws-sdk');
-const keys = require('./AWS_KEY')
+const keys = require('./util/AWS_KEY')
 
 AWS.config.update({
   region: keys.region,
