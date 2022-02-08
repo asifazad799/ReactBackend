@@ -2,14 +2,7 @@ const S3 = require('aws-sdk/clients/s3')
 const fs = require('fs')
 const AWS = require('aws-sdk');
 
-AWS.config.update({
-    region: "ap-south-1",
-    apiVersion: 'latest',
-    credentials: {
-      accessKeyId: 'AKIAWYIIU2A6WD7VQVWA',
-      secretAccessKey: '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'
-    }
-  })
+
 
 const bucketName = "iacademy-app"
 const bucketRegion = AWS.config.region
