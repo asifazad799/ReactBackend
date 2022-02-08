@@ -1,8 +1,16 @@
 const S3 = require('aws-sdk/clients/s3')
 const fs = require('fs')
 const AWS = require('aws-sdk');
+const keys = require('./AWS_KEY')
 
-
+AWS.config.update({
+  region: keys.region,
+  apiVersion: keys.apiVersion,
+  credentials: {
+    accessKeyId: keys.credentials.accessKeyId,
+    secretAccessKey: keys.credentials.secretAccessKey
+  }
+})
 
 const bucketName = "iacademy-app"
 const bucketRegion = AWS.config.region
@@ -14,7 +22,6 @@ const s3 = new S3({
     accessKeyId,
     secretKeyId
 })
-
 
 //s3 upload file fution
 function uploadFile(file,name) {
