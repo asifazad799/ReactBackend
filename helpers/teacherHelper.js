@@ -9,9 +9,6 @@ module.exports = {
 
     signUp:(data) =>{
         return new Promise(async(resolve,reject)=>{
-
-            // console.log(data);
-
             let user = await db.get()
             .collection(collection.TEACHER_COLLECTION)
             .findOne({email:data.email});
@@ -93,16 +90,35 @@ module.exports = {
     },
     getCourseData: (teacherId) => {
         return new Promise(async(resolve, reject) => {
-
             let data = await db.get().collection(collection.COURSES)
             .find({teacher:objectId(teacherId)})
-            .toArray()
+            .sort({_id:-1}).toArray()
             // console.log(data.length);
             if(data.length !== 0){
                 resolve(data)
             }else{
                 reject({dataNotFound:true})
             }
+        })
+    },
+    updateCourseTopBar: (courseDetails) => {
+        return new Promise(async(resolve, reject) => {
+            await db.get()
+            .collection(collection.COURSES)
+            .updateOne(
+                {_id:objectId(courseDetails.courseId)},
+                {$set:{
+                    title: courseDetails.title,
+                    thumbnial: courseDetails.thumbnail,
+                    category: courseDetails.category,
+                    language: courseDetails.language,
+                    description: courseDetails.description
+                }}
+            ).then(() => {
+                resolve()
+            }).catch(() => {
+                reject()
+            })
         })
     }
 
